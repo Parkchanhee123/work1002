@@ -105,9 +105,8 @@ public class ManagerDao {
 
     public Boolean M11_2(Item item, Connection con) throws Exception {
         PreparedStatement ps = null;
-
         try {
-            ps = con.prepareStatement(AdminSql.M111_1);
+            ps = con.prepareStatement(AdminSql.M11_2);
             ps.setBoolean(1, item.isFlag());
             ps.setInt(2, item.getItem_id());
             int result = ps.executeUpdate();
@@ -164,7 +163,7 @@ public class ManagerDao {
     }
 
 
-    public List<Cust> m41_1(Connection conn) throws Exception {
+    public List<Cust> M41_1(Connection conn) throws Exception {
         List<Cust> custList = new ArrayList<>();  // 고객 목록을 저장할 리스트
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -188,6 +187,7 @@ public class ManagerDao {
                 cust.setCust_point(rs.getInt("cust_point"));
                 cust.setFirst_date(rs.getDate("first_date"));
                 cust.setUpdate_date(rs.getDate("update_date"));
+                System.out.println(cust.toString());
                 custList.add(cust);
             }
         } catch (Exception e) {
@@ -233,6 +233,7 @@ public class ManagerDao {
                 review.setReview_title(rs.getString("review_title")); // 리뷰 제목 (String)
                 review.setReview_text(rs.getString("review_text"));   // 리뷰 내용 (String)
                 review.setReview_star(rs.getInt("review_star"));      // 별점 (int)
+                System.out.println(review.toString());
                 reviewList.add(review);
             }
         } catch (Exception e) {

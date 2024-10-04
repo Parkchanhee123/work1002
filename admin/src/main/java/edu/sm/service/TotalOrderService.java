@@ -13,15 +13,12 @@ import java.util.List;
 public class TotalOrderService implements MService<Integer, TotalOrder> {
     TotalOrderDao dao;
     ConnectionPool cp;
-    public TotalOrderService() {
-        dao = new TotalOrderDao();
-        try {
-            cp = ConnectionPool.create();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void setDao(TotalOrderDao dao) {
+        this.dao = dao;
     }
-
+    public void setCp(ConnectionPool cp) {
+        this.cp = cp;
+    }
     public List<TotalOrderStats> M21_1() throws Exception {
         Connection con = cp.getConnection();
         List<TotalOrderStats> result = null;

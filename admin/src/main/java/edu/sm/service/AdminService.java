@@ -1,9 +1,7 @@
 package edu.sm.service;
 
 import edu.sm.dao.ManagerDao;
-import edu.sm.dto.AdminInfo;
-import edu.sm.dto.Item;
-import edu.sm.dto.Review;
+import edu.sm.dto.*;
 import edu.sm.frame.ConnectionPool;
 import edu.sm.frame.MService;
 
@@ -14,13 +12,11 @@ import java.util.List;
 public class AdminService implements MService<String, AdminInfo> {
     ManagerDao dao;
     ConnectionPool cp;
-    public AdminService(){
-        dao = new ManagerDao();
-        try {
-            cp = ConnectionPool.create();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void setDao(ManagerDao dao) {
+        this.dao = dao;
+    }
+    public void setCp(ConnectionPool cp) {
+        this.cp = cp;
     }
 
     public AdminInfo loginCheck(String id, String pwd) throws Exception{
@@ -48,6 +44,17 @@ public class AdminService implements MService<String, AdminInfo> {
         }
 
         return result;
+    }
+    public Boolean M11_2(Item i) throws Exception{
+        Connection con = cp.getConnection();
+        try{
+            dao.M11_2(i, con);
+        }catch(Exception e){
+
+        }finally {
+            cp.releaseConnection(con);
+        }
+        return false;
     }
 
     public Boolean M111_1(Item item) throws Exception{
@@ -97,5 +104,42 @@ public class AdminService implements MService<String, AdminInfo> {
         return result;
     }
 
-//    public
+    public List<Cust> M41_1() throws Exception{
+        Connection con = cp.getConnection();
+        List<Cust> result = null;
+        try{
+            dao.M41_1(con);
+        }catch(Exception e){
+            throw e;
+        }finally {
+            cp.releaseConnection(con);
+        }
+        return result;
+    }
+
+    public Answer M311_1(Answer answer) throws Exception{
+        Connection con = cp.getConnection();
+        Answer result = null;
+        try {
+            dao.M311_1(answer, con);
+        }catch(Exception e){
+            throw e;
+        }finally{
+            cp.releaseConnection(con);
+        }
+        return result;
+    }
+
+    public Boolean M411_1(Cust cust) throws Exception{
+        Connection con = cp.getConnection();
+        Boolean result = false;
+        try{
+            dao.M411_1(cust, con);
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            cp.releaseConnection(con);
+        }
+        return result;
+    }
 }
