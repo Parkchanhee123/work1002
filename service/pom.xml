@@ -14,6 +14,9 @@
         <org.springframework-version>4.2.5.RELEASE</org.springframework-version>
         <org.aspectj-version>1.6.5</org.aspectj-version>
         <org.slf4j-version>1.7.18</org.slf4j-version>
+
+
+
     </properties>
     <dependencies>
         <!-- Spring -->
@@ -85,6 +88,14 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${org.aspectj-version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
+
+
     </dependencies>
 
 
