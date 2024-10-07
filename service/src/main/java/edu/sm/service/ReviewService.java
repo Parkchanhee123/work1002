@@ -1,77 +1,49 @@
 package edu.sm.service;
 
 import edu.sm.dao.ReviewDao;
+import edu.sm.dao.TotalOrderDao;
 import edu.sm.dto.Review;
 import edu.sm.frame.ConnectionPool;
 import edu.sm.frame.MService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
+@Service
 public class ReviewService implements MService<String, Review> {
-    ReviewDao dao;
-    ConnectionPool cp;
+    private ReviewDao dao;
+    private ConnectionPool cp;
 
-    public ReviewService() {
-        dao = new ReviewDao();
-        try {
-            cp = ConnectionPool.create();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void setDao(ReviewDao dao) {
+        this.dao = dao;
+    }
+
+    public void setCp(ConnectionPool cp) {
+        this.cp = cp;
     }
 
     public Review C221_1(Review review) throws Exception {
         Connection con = null;
-        Review result = null;
         try {
-            // 데이터베이스 연결 가져오기
-            con = cp.getConnection();  // cp는 ConnectionPool 객체
-            ReviewDao dao = new ReviewDao();
-
-            // 후기 업데이트
-            result = dao.C221_1(review, con);
-        } catch (Exception e) {
-            // 예외 처리
-            throw e;
+            con = cp.getConnection();
+            return dao.C221_1(review, con);
         } finally {
             if (con != null) {
-                con.close();  // 연결 해제
+                cp.releaseConnection(con);
             }
         }
-        return review;
     }
-    public Review C221_2(Review review) throws Exception {
-        Connection con = cp.getConnection();
-        dao.C211_2(review, con);
-        cp.releaseConnection(con);
-        return review;
+
+    public boolean C211_2(Review review) throws Exception {
+        Connection con = null;
+        try {
+            con = cp.getConnection();
+            return dao.C211_2(review, con);
+        } finally {
+            if (con != null) {
+                cp.releaseConnection(con);
+            }
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

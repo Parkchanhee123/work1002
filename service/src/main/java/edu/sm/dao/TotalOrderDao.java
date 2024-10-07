@@ -22,7 +22,6 @@ public class TotalOrderDao implements Dao<Integer, TotalOrder> {
             ps = con.prepareStatement(AdminSql.M21_1);
             rs = ps.executeQuery();
 
-            // ResultSet에서 데이터 읽기
             while (rs.next()) {
                 TotalOrderStats stats = new TotalOrderStats();
                 stats.setGroup(rs.getString(1));
@@ -30,7 +29,6 @@ public class TotalOrderDao implements Dao<Integer, TotalOrder> {
                 stats.setPercentageOfTotalSalesCount(rs.getInt(3));
                 stats.setTotalSalesAmount(rs.getInt(4));
                 stats.setPercentageOfTotalSalesAmount(rs.getInt(5));
-                // 리스트에 추가
                 totalOrderStatsList.add(stats);
                 System.out.println(stats.toString());
             }
@@ -50,7 +48,6 @@ public class TotalOrderDao implements Dao<Integer, TotalOrder> {
             ps = con.prepareStatement(AdminSql.M22_1);
             rs = ps.executeQuery();
 
-            // ResultSet에서 데이터 읽기
             while (rs.next()) {
                 TotalOrderStats stats = new TotalOrderStats();
                 stats.setGroup(rs.getString(1));
@@ -58,7 +55,6 @@ public class TotalOrderDao implements Dao<Integer, TotalOrder> {
                 stats.setPercentageOfTotalSalesCount(rs.getInt(3));
                 stats.setTotalSalesAmount(rs.getInt(4));
                 stats.setPercentageOfTotalSalesAmount(rs.getInt(5));
-                // 리스트에 추가
                 totalOrderStatsList.add(stats);
                 System.out.println(stats.toString());
             }
@@ -79,7 +75,6 @@ public class TotalOrderDao implements Dao<Integer, TotalOrder> {
             ps = con.prepareStatement(AdminSql.M23_1);
             rs = ps.executeQuery();
 
-            // ResultSet에서 데이터 읽기
             while (rs.next()) {
                 TotalOrderStats stats = new TotalOrderStats();
                 stats.setGroup(rs.getString(1));
@@ -87,7 +82,6 @@ public class TotalOrderDao implements Dao<Integer, TotalOrder> {
                 stats.setPercentageOfTotalSalesCount(rs.getInt(3));
                 stats.setTotalSalesAmount(rs.getInt(4));
                 stats.setPercentageOfTotalSalesAmount(rs.getInt(5));
-                // 리스트에 추가
                 totalOrderStatsList.add(stats);
                 System.out.println(stats.toString());
             }
@@ -107,7 +101,6 @@ public class TotalOrderDao implements Dao<Integer, TotalOrder> {
         try{
             ps = con.prepareStatement(AdminSql.M24_1);
             rs = ps.executeQuery();
-            // ResultSet에서 데이터 읽기
             while (rs.next()) {
                 TotalOrderStats stats = new TotalOrderStats();
                 stats.setGroup(rs.getString(1));
@@ -115,7 +108,6 @@ public class TotalOrderDao implements Dao<Integer, TotalOrder> {
                 stats.setPercentageOfTotalSalesCount(rs.getInt(3));
                 stats.setTotalSalesAmount(rs.getInt(4));
                 stats.setPercentageOfTotalSalesAmount(rs.getInt(5));
-                // 리스트에 추가
                 totalOrderStatsList.add(stats);
                 System.out.println(stats.toString());
             }

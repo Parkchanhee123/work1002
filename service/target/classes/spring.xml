@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- ConnectionPool Bean 정의 -->
+    <bean id="connectionPool" class="edu.sm.frame.ConnectionPool" factory-method="create"/>
+
+    <!-- ItemDao 및 ItemService 설정 -->
+    <bean id="itemDao" class="edu.sm.dao.ItemDao"/>
+    <bean id="itemService" class="edu.sm.service.ItemService">
+        <property name="dao" ref="itemDao"/>
+        <property name="cp" ref="connectionPool"/>
+    </bean>
+
+    <bean id="totalOrderDao" class="edu.sm.dao.TotalOrderDao"/>
+
+    <bean id="totalOrderService" class="edu.sm.service.TotalOrderService">
+        <property name="dao" ref="totalOrderDao"/>
+        <property name="cp" ref="connectionPool"/>
+    </bean>
+
+    <bean id="reviewDao" class="edu.sm.dao.ReviewDao"/>
+
+    <bean id="reviewService" class="edu.sm.service.ReviewService">
+        <property name="dao" ref="reviewDao"/>
+        <property name="cp" ref="connectionPool"/>
+    </bean>
+
+    <bean id="custDao" class="edu.sm.dao.CustDao"/>
+
+    <bean id="custService" class="edu.sm.service.CustService">
+        <property name="dao" ref="custDao"/>
+        <property name="cp" ref="connectionPool"/>
+    </bean>
+
+</beans>

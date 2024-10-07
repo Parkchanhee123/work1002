@@ -1,5 +1,6 @@
 package edu.sm.service;
 
+import edu.sm.dao.ItemDao;
 import edu.sm.dao.TotalOrderDao;
 import edu.sm.dto.TotalOrder;
 import edu.sm.dto.TotalOrderStats;
@@ -11,15 +12,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class TotalOrderService implements MService<Integer, TotalOrder> {
-    TotalOrderDao dao;
-    ConnectionPool cp;
-    public TotalOrderService() {
-        dao = new TotalOrderDao();
-        try {
-            cp = ConnectionPool.create();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    private TotalOrderDao dao;
+    private ConnectionPool cp;
+
+    public void setDao(TotalOrderDao dao) {
+        this.dao = dao;
+    }
+
+    public void setCp(ConnectionPool cp) {
+        this.cp = cp;
     }
 
     public List<TotalOrderStats> M21_1() throws Exception {

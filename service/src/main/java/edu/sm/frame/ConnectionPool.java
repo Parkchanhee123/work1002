@@ -12,22 +12,21 @@ public class ConnectionPool {
 
     private List<Connection> connectionPool;
     private List<Connection> usedConnections = new ArrayList<>();
-    private static int INITIAL_POOL_SIZE = 3;
+    private static final int INITIAL_POOL_SIZE = 3;
     static ResourceBundle rb;
+
     static {
-        rb = null;
-        rb = ResourceBundle.getBundle("mysql", Locale.KOREA);
         try {
+            rb = ResourceBundle.getBundle("mysql", Locale.KOREA);
             Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.println("OK");
-            System.out.println(rb.getString("url"));
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException("MySQL Driver not found!", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error loading database configuration!", e);
         }
     }
 
     public static ConnectionPool create() throws SQLException {
-
         String url = rb.getString("url");
         String user = rb.getString("user");
         String password = rb.getString("password");
@@ -39,35 +38,33 @@ public class ConnectionPool {
         return new ConnectionPool(pool);
     }
 
-    public ConnectionPool(List<Connection> connectionPool) {
+    private ConnectionPool(List<Connection> connectionPool) {
         this.connectionPool = connectionPool;
     }
 
-    //커넥션중 하나 끄집어 내서 리턴하는거
     public Connection getConnection() {
-        Connection connection = connectionPool
-                .remove(connectionPool.size() - 1);
+        if (connectionPool.isEmpty()) {
+            throw new RuntimeException("All connections are in use!");
+        }
+        Connection connection = connectionPool.remove(connectionPool.size() - 1);
         usedConnections.add(connection);
         return connection;
     }
 
-    //쓰고나서 반납하기
     public boolean releaseConnection(Connection connection) {
         connectionPool.add(connection);
         return usedConnections.remove(connection);
     }
 
-    private static Connection createConnection(
-            String url, String user, String password)
-            throws SQLException {
+    private static Connection createConnection(String url, String user, String password) throws SQLException {
         return DriverManager.getConnection(url, user, password);
     }
 
     public int getSize() {
         return connectionPool.size() + usedConnections.size();
     }
+
     public int getUseSize() {
         return connectionPool.size();
     }
-
 }

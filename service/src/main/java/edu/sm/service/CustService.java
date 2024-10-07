@@ -1,6 +1,7 @@
 package edu.sm.service;
 
 import edu.sm.dao.CustDao;
+import edu.sm.dao.TotalOrderDao;
 import edu.sm.dto.Cust;
 import edu.sm.frame.ConnectionPool;
 import edu.sm.frame.MService;
@@ -11,13 +12,13 @@ import java.sql.SQLException;
 public class CustService implements MService<String, Cust> {
     CustDao dao;
     ConnectionPool cp;
-    public CustService() {
-        dao = new CustDao();
-        try {
-            cp = ConnectionPool.create();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+    public void setDao(CustDao dao) {
+        this.dao = dao;
+    }
+
+    public void setCp(ConnectionPool cp) {
+        this.cp = cp;
     }
 
     public Cust C4_1(String s) throws Exception{
